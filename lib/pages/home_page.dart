@@ -67,11 +67,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           //const SizedBox(height: 48),
 
-          // good morning bro
-          //const Padding(
-            //padding: EdgeInsets.symmetric(horizontal: 24.0),
-            //child: Text('Good morning,'),
-          //),
+
 
           const SizedBox(height: 4),
 

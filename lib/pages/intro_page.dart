@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'home_page.dart';
-
+import 'signup.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
@@ -13,7 +12,7 @@ class IntroPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            //  logo
+            // logo
             Padding(
               padding: const EdgeInsets.only(
                 left: 100.0,
@@ -39,23 +38,21 @@ class IntroPage extends StatelessWidget {
 
             const SizedBox(height: 24),
 
-            //Fresh items everyday
+            // Fresh items every day
             Text(
-              "Fresh items everyday",
+              "Fresh items every day",
               style: TextStyle(color: Colors.grey[600]),
               textAlign: TextAlign.center,
             ),
 
             const Spacer(),
 
-            // get started button
-      GestureDetector(
-        onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-              return HomePage();
-            },
-        )),
-
-            child: Container(
+            // Get Started button
+            GestureDetector(
+              onTap: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                return HomePage();
+              })),
+              child: Container(
                 decoration: BoxDecoration(
                   color: Colors.deepPurple,
                   borderRadius: BorderRadius.circular(12),
@@ -63,14 +60,35 @@ class IntroPage extends StatelessWidget {
                 padding: EdgeInsets.all(24),
                 child: Text(
                   "Get Started",
-                  style: TextStyle(
-                    color: Colors.white),
-                  ),
+                  style: TextStyle(color: Colors.white),
                 ),
-      ),
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            // Sign Up button
+            GestureDetector(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return SignUp(); // Navigate to the SignUp page
+                }));
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple, // Use the same color as Get Started button
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: EdgeInsets.all(24),
+                child: Text(
+                  "Sign Up",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ),
 
             const Spacer(),
-],
+          ],
         ),
       ),
     );
