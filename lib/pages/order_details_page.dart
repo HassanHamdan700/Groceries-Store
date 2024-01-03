@@ -1,6 +1,5 @@
-// order_details_page.dart
-
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class OrderDetailsPage extends StatelessWidget {
   final List<dynamic> cartItems;
@@ -14,7 +13,7 @@ class OrderDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: Text('Order Details'),
+        title: const Text('Order Details'),
       ),
       body: Align(
         alignment: Alignment.bottomCenter,
@@ -23,10 +22,10 @@ class OrderDetailsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Order Summary',
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
@@ -35,7 +34,7 @@ class OrderDetailsPage extends StatelessWidget {
             Expanded(
               child: ListView.separated(
                 itemCount: cartItems.length,
-                separatorBuilder: (context, index) => Divider(),
+                separatorBuilder: (context, index) => const Divider(),
                 itemBuilder: (context, index) {
                   var item = cartItems[index];
                   return ListTile(
@@ -54,14 +53,14 @@ class OrderDetailsPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Total Price',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     '\$${totalPrice.toStringAsFixed(2)}',
-                    style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
@@ -70,38 +69,35 @@ class OrderDetailsPage extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
-                onPressed: () {
-                  // Add logic to confirm the order
-                  // You can show a confirmation dialog or perform any other action
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text('Confirm Order'),
-                      content: Text('Do you want to confirm the order?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            // Add logic to handle the confirmation
-                            Navigator.pop(context); // Close the dialog
-                          },
-                          child: Text('Yes'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context); // Close the dialog
-                          },
-                          child: Text('No'),
-                        ),
-                      ],
-                    ),
-                  );
+                onPressed: () async {
+                  // Add your logic to gather order details
+                  String itemName = "Example Item";
+                  double itemPrice = 10.0;
+
+                  // Create a map of data to send
+                  Map<String, dynamic> data = {
+                    'itemName': itemName,
+                    'itemPrice': itemPrice.toString(),
+                    // Add other fields as needed
+                  };
+
+                  // Send the data to the PHP script
+                  Uri url = Uri.parse('https://hassanhamdan.000webhostapp.com/SignUp.php'); // Replace with your actual URL
+                  var response = await http.post(url, body: data);
+
+                  // Handle the response
+                  if (response.statusCode == 200) {
+                    print("Order saved successfully");
+                  } else {
+                    print("Failed to save order. Error: ${response.body}");
+                  }
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepPurple, // Set the background color to deep purple
+                  primary: Colors.deepPurple, 
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Text(
+                  child: const Text(
                     'Confirm Order',
                     style: TextStyle(fontSize: 24),
                   ),
